@@ -30,12 +30,13 @@
             background-color: var(--light-gray);
             color: var(--text);
             line-height: 1.6;
+            min-width: 320px; /* Prevent horizontal scrolling on very small devices */
         }
         
         header {
             background-color: var(--primary);
             color: var(--secondary);
-            padding: 2.5rem 0;
+            padding: 1.5rem 0;
             text-align: center;
             margin-bottom: 1.5rem;
             border-bottom: 1px solid var(--medium-gray);
@@ -44,39 +45,58 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1rem; /* More padding on small screens */
         }
         
         h1 {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 5vw, 2.2rem); /* Responsive font size */
             margin-bottom: 0.5rem;
             font-weight: 600;
             letter-spacing: -0.5px;
         }
         
         .subtitle {
-            font-size: 1rem;
+            font-size: clamp(0.875rem, 3vw, 1rem); /* Responsive font size */
             color: var(--dark-gray);
             font-weight: 400;
             max-width: 700px;
             margin: 0 auto;
+            padding: 0 0.5rem; /* Add some padding on small screens */
         }
         
         .controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
+            flex-direction: column; /* Stack vertically on small screens */
+            gap: 1rem;
+            margin-bottom: 1.5rem;
             background: white;
-            padding: 1rem 1.5rem;
+            padding: 1rem;
             border-radius: 8px;
             box-shadow: var(--shadow);
         }
         
+        @media (min-width: 640px) {
+            .controls {
+                flex-direction: row; /* Horizontal layout on larger screens */
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 1.5rem;
+            }
+        }
+        
         .sort-options {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            flex-direction: column; /* Stack vertically on small screens */
+            gap: 0.5rem;
+            width: 100%;
+        }
+        
+        @media (min-width: 480px) {
+            .sort-options {
+                flex-direction: row; /* Horizontal layout on larger screens */
+                align-items: center;
+                width: auto;
+            }
         }
         
         .sort-label {
@@ -94,6 +114,13 @@
             cursor: pointer;
             transition: all 0.2s;
             color: var(--secondary);
+            width: 100%; /* Full width on small screens */
+        }
+        
+        @media (min-width: 480px) {
+            .sort-select {
+                width: auto; /* Auto width on larger screens */
+            }
         }
         
         .sort-select:hover {
@@ -108,13 +135,28 @@
         .hotel-count {
             font-size: 0.9rem;
             color: var(--dark-gray);
+            text-align: right;
+            width: 100%; /* Full width on small screens */
+        }
+        
+        @media (min-width: 640px) {
+            .hotel-count {
+                width: auto; /* Auto width on larger screens */
+                text-align: left;
+            }
         }
         
         .hotel-list {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            gap: 1.25rem; /* Smaller gap on mobile */
+            margin-bottom: 2rem;
+        }
+        
+        @media (min-width: 640px) {
+            .hotel-list {
+                gap: 1.5rem; /* Larger gap on tablets and up */
+            }
         }
         
         .hotel-card {
@@ -122,8 +164,14 @@
             border-radius: 8px;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            padding: 1.5rem;
+            padding: 1.25rem; /* Slightly less padding on mobile */
             border: 1px solid var(--medium-gray);
+        }
+        
+        @media (min-width: 640px) {
+            .hotel-card {
+                padding: 1.5rem; /* More padding on larger screens */
+            }
         }
         
         .hotel-card:hover {
@@ -132,13 +180,13 @@
         }
         
         .hotel-header {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--medium-gray);
         }
         
         .hotel-name {
-            font-size: 1.3rem;
+            font-size: clamp(1.1rem, 4vw, 1.3rem); /* Responsive font size */
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--secondary);
@@ -147,12 +195,12 @@
         .hotel-price {
             font-weight: 600;
             color: var(--secondary);
-            margin: 0.8rem 0;
-            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            font-size: clamp(1rem, 3vw, 1.1rem); /* Responsive font size */
         }
         
         .hotel-address {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
             color: var(--dark-gray);
             margin-bottom: 0.5rem;
             display: flex;
@@ -164,7 +212,7 @@
             background-color: var(--light-gray);
             padding: 0.3rem 0.8rem;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 3vw, 0.8rem); /* Responsive font size */
             font-weight: 500;
             margin-top: 0.5rem;
         }
@@ -177,8 +225,15 @@
         
         .hotel-body {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            grid-template-columns: 1fr; /* Single column on mobile */
+            gap: 1.25rem; /* Smaller gap on mobile */
+        }
+        
+        @media (min-width: 640px) {
+            .hotel-body {
+                grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+                gap: 1.5rem;
+            }
         }
         
         .amenities {
@@ -186,12 +241,18 @@
         }
         
         .amenities-title {
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 3vw, 0.95rem); /* Responsive font size */
             font-weight: 600;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem; /* Smaller margin on mobile */
             color: var(--secondary);
             display: flex;
             align-items: center;
+        }
+        
+        @media (min-width: 640px) {
+            .amenities-title {
+                margin-bottom: 0.8rem; /* Larger margin on larger screens */
+            }
         }
         
         .amenities-title i {
@@ -209,7 +270,7 @@
             background-color: var(--light-gray);
             padding: 0.4rem 0.8rem;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 3vw, 0.8rem); /* Responsive font size */
             display: flex;
             align-items: center;
             transition: all 0.2s;
@@ -229,9 +290,15 @@
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 0.6rem;
-            font-size: 0.9rem;
+            margin-bottom: 0.5rem; /* Smaller margin on mobile */
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
             color: var(--dark-gray);
+        }
+        
+        @media (min-width: 640px) {
+            .contact-item {
+                margin-bottom: 0.6rem; /* Larger margin on larger screens */
+            }
         }
         
         .contact-item i {
@@ -244,7 +311,13 @@
         .rating {
             display: flex;
             align-items: center;
-            margin-top: 0.8rem;
+            margin-top: 0.5rem; /* Smaller margin on mobile */
+        }
+        
+        @media (min-width: 640px) {
+            .rating {
+                margin-top: 0.8rem; /* Larger margin on larger screens */
+            }
         }
         
         .rating-value {
@@ -252,24 +325,24 @@
             color: var(--secondary);
             padding: 0.3rem 0.6rem;
             border-radius: 4px;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
             font-weight: 600;
             margin-right: 0.5rem;
         }
         
         .rating-source {
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 3vw, 0.8rem); /* Responsive font size */
             color: var(--dark-gray);
         }
         
         .website-link {
             display: inline-flex;
             align-items: center;
-            margin-top: 1.2rem;
+            margin-top: 1rem;
             color: var(--secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
             padding: 0.5rem 1rem;
             border-radius: 6px;
             background-color: var(--light-gray);
@@ -287,7 +360,7 @@
         }
         
         .no-price {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
             color: var(--dark-gray);
             font-style: italic;
         }
@@ -296,35 +369,44 @@
             background-color: var(--primary);
             color: var(--secondary);
             text-align: center;
-            padding: 2.5rem 0;
-            margin-top: 4rem;
+            padding: 2rem 0;
+            margin-top: 3rem;
             border-top: 1px solid var(--medium-gray);
         }
         
         .footer-content {
             max-width: 600px;
             margin: 0 auto;
+            padding: 0 1rem;
         }
         
         .footer-text {
             color: var(--dark-gray);
-            font-size: 0.95rem;
+            font-size: clamp(0.85rem, 3vw, 0.95rem); /* Responsive font size */
             margin-bottom: 1.5rem;
             font-weight: 400;
         }
         
         .footer-links {
             display: flex;
+            flex-wrap: wrap; /* Allow links to wrap on small screens */
             justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem; /* Smaller gap on mobile */
             margin-bottom: 1.5rem;
+        }
+        
+        @media (min-width: 480px) {
+            .footer-links {
+                gap: 1.5rem; /* Larger gap on larger screens */
+            }
         }
         
         .footer-link {
             color: var(--dark-gray);
             text-decoration: none;
             transition: all 0.2s;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 3vw, 0.9rem); /* Responsive font size */
+            white-space: nowrap; /* Prevent line breaks */
         }
         
         .footer-link:hover {
@@ -332,36 +414,8 @@
         }
         
         .copyright {
-            font-size: 0.8rem;
+            font-size: clamp(0.75rem, 3vw, 0.8rem); /* Responsive font size */
             color: var(--dark-gray);
-        }
-        
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            
-            .sort-options {
-                width: 100%;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-            
-            .sort-select {
-                width: 100%;
-            }
-            
-            .hotel-body {
-                grid-template-columns: 1fr;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
         }
     </style>
 </head>
